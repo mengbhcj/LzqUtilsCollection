@@ -16,6 +16,16 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven {
+            url 'https://maven.aliyun.com/repository/public'
+        }
+        maven {
+            credentials {
+                username '654469408252b691c749665a'
+                password 'DXWl7VxzF7KT'
+            }
+            url 'https://packages.aliyun.com/65446a7714898d69092c70b7/maven/repo-izojv'
+        }
     }
 }
 

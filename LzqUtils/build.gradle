@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    id 'maven-publish'
 }
 
 android {
@@ -15,6 +16,10 @@ android {
     }
 
     buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -30,6 +35,29 @@ android {
     //使用资源前缀，防止sdk产生冲突
     resourcePrefix "lzq_"
 }
+//写在那个库的build.gradle中 就发布当前库的内容
+afterEvaluate {
+    publishing {
+        publications {
+            plugin(MavenPublication) {
+                from components.debug
+                groupId = 'com.lzq.lzqutilscollection'
+                artifactId = "lzq-utils"
+                version = '1.0.1-SNAPSHOT'
+            }
+        }
+        repositories {
+            maven {
+                url = 'https://packages.aliyun.com/65446a7714898d69092c70b7/maven/repo-izojv'
+                credentials {
+                    username = '654469408252b691c749665a'
+                    password = 'DXWl7VxzF7KT'
+                }
+            }
+        }
+    }
+}
+
 // 在这里添加配置
 configurations.configureEach {
     resolutionStrategy {
